@@ -56,3 +56,20 @@ rake run_app:nanoc_server['demo_nanoc']
 
 **Note:** Actually `rake run_app:nanoc`calls the `bundle_install`,
 `bundle_update`,`nanoc_compile`,`nanoc_server` .
+
+
+- To `bundle exec ruby app.rb` in a folder(e.g. demo_sinatra) :
+
+```
+rake run_app:sinatra_server
+
+```
+
+- To run sinatra app,which is in demo_sinatra :
+
+```
+rake run_app:sinatra
+```
+
+**Note:** Actually `rake run_app:sinatra`calls the `bundle_install`,
+`bundle_update`,`sinatra_server` .
