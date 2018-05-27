@@ -1191,6 +1191,7 @@ opts4 = {
         rangeSelector: {
             selected: 2
         },
+        modules: ['highcharts-more'],
 
         title: {
             text: 'Temperature variation by day'
@@ -1517,6 +1518,8 @@ opts4 = {
 	        marginTop: 15,
 	        height: '65%'
 	    },
+
+      modules: ['modules/tilemap'],
 
 	    title: {
 	        text: 'Idea map'
