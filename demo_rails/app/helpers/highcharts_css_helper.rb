@@ -1,0 +1,2 @@
+module HighchartsCssHelper
+end

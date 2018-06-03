@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get '/highcharts', to: 'application#highcharts'
   get '/googlecharts', to: 'application#googlecharts'
   get '/datatables', to: 'application#datatables'
+  get '/highchartscss', to: 'highcharts_css#highcharts_css'
 end
