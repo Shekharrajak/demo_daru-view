@@ -249,6 +249,18 @@ class ApplicationController < ActionController::Base
         ['Russia', 'Russia: 146,019,512'],
         ['Japan', 'Japan: 127,120,000']
       ]
+
+    @query_products = 'SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8'
+    @products = 'https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8' \
+            'Xv29_8PWuuW15qmAE/gviz/tq?gid=0&headers=1&tq='
+    @products << @query_products
+    @column_chart_options = {
+      width: 600,
+      type: :column,
+      adapter: :googlecharts
+    }
+    @column_chart = Daru::View::Plot.new(@products, @column_chart_options)
+
     df_cp = Daru::DataFrame.rows(country_population)
     df_cp.vectors = Daru::Index.new(['Country', 'Population'])
     @cp_table = Daru::View::Table.new(df_cp, pageSize: 5, adapter: :googlecharts)
