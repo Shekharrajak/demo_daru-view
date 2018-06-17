@@ -55,6 +55,17 @@ charts is not coming in 3d, since google_visualr loading only corechart package 
   <b>Options</b>
   <%=raw @customers_table.options %>
   <br>
+  <b>JavaScript Generated: </b>
+  <br> &ensp;function draw() {
+  <br> &emsp;var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq=SELECT * WHERE A > 1');
+  <br> &emsp;query.send(handleQueryResponse);
+  <br> &ensp;}
+  <br> &ensp;function handleQueryResponse(response) {
+  <br> &emsp;var data_table = response.getDataTable();
+  <br> &emsp;var table = new google.visualization.Table(document.getElementById('id'));
+  <br> &emsp;table.draw(data_table, {});
+  <br> &ensp;};
+  <br>
   <b>Table : </b>
   <br>
   <%=raw @customers_table.div %>
@@ -68,6 +79,17 @@ charts is not coming in 3d, since google_visualr loading only corechart package 
   <br>
   <b>Options</b>
   <%=raw @customers_chart.options %>
+  <br>
+  <b>JavaScript Generated: </b>
+  <br> &ensp;function draw() {
+  <br> &emsp;var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq=SELECT * WHERE A > 1');
+  <br> &emsp;query.send(handleQueryResponse);
+  <br> &ensp;}
+  <br> &ensp;function handleQueryResponse(response) {
+  <br> &emsp;var data_table = response.getDataTable();
+  <br> &emsp;var table = new google.visualization.LineChart(document.getElementById('id'));
+  <br> &emsp;table.draw(data_table, {});
+  <br> &ensp;};
   <br>
   <b>Chart : </b>
   <br>
