@@ -249,6 +249,29 @@ class ApplicationController < ActionController::Base
         ['Russia', 'Russia: 146,019,512'],
         ['Japan', 'Japan: 127,120,000']
       ]
+
+    @data_customers = 'https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq='
+    @query_customers = 'SELECT * WHERE A > 1'
+    @data_customers << @query_customers
+    @customers_table = Daru::View::Table.new(@data_customers, adapter: :googlecharts)
+    @customers_chart = Daru::View::Plot.new(@data_customers, {type: :line, adapter: :googlecharts})
+
+    @query_products = 'SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8'
+    @products = 'https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8' \
+            'Xv29_8PWuuW15qmAE/gviz/tq?gid=0&headers=1&tq='
+    @products << @query_products
+    @column_chart_options = {
+      width: 600,
+      type: :column,
+      adapter: :googlecharts
+    }
+    @table_options = {
+      adapter: :googlecharts,
+      showRowNumber: true
+    }
+    @products_table = Daru::View::Table.new(@products, @table_options)
+    @column_chart = Daru::View::Plot.new(@products, @column_chart_options)
+
     df_cp = Daru::DataFrame.rows(country_population)
     df_cp.vectors = Daru::Index.new(['Country', 'Population'])
     @cp_table = Daru::View::Table.new(df_cp, pageSize: 5, adapter: :googlecharts)
