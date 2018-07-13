@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/datatables', to: 'application#datatables'
   get '/highchartscss', to: 'highcharts_css#highcharts_css'
   get '/highchartstockmap', to: 'highchart_stock_map#highchart_stock_map'
+  get '/multiplecharts', to: 'multiple_charts#multiple_charts'
 end
