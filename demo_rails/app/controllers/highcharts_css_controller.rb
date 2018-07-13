@@ -28,18 +28,10 @@ class HighchartsCssController < ApplicationController
     }
 
     # data for the charts
-    series_dt = ([{
-      name: 'Tokyo',
-      data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-    }, {
-      name: 'London',
-      data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }])
+    data = Daru::Vector.new([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
 
     # initialize
-    @line_graph = Daru::View::Plot.new
-    @line_graph.chart.options = opts
-    @line_graph.chart.series_data = series_dt
+    @line_graph = Daru::View::Plot.new(data, opts)
 
     opts2 = {
       chart: {
@@ -87,9 +79,7 @@ class HighchartsCssController < ApplicationController
     }]
 
     # initialize
-    @column_graph = Daru::View::Plot.new
-    @column_graph.chart.options = opts2
-    @column_graph.chart.series_data = series_dt2
+    @column_graph = Daru::View::Plot.new(series_dt2, opts2)
 
     render "highcharts_css" , layout: "highcharts_layout"
   end
