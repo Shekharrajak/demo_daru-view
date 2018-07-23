@@ -1,12 +1,23 @@
+<h3> Large set of data: </h3>
+<p>
+  <b>Data : </b>
+  A large set of data
+  <br>
+  <b>Table : </b>
+  <br>
+  <div style="width: 500px;"><%=raw @table_array_large.div %></div>
+</p>
+
+<br>
 
 <h3> Daru DataFrame: </h3>
 <p style="color:blue;width: 100px;">
   <b>Data : </b>
-  <%=raw @dt_df2.data.to_html %>
+  <%=raw @dt_df2.data %>
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_df2_html %></div>
+  <div style="width: 500px;"><%=raw @dt_df2.div %></div>
 
 </p>
 
@@ -17,11 +28,11 @@
 <h3> Daru DataFrame: </h3>
 <p>
   <b>Data : </b>
-  <%=raw @dt_df1.data.to_html %>
+  <%=raw @dt_df1.data %>
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_df1_html %></div>
+  <div style="width: 500px;"><%=raw @dt_df1.div %></div>
 </p>
 
 <br>
@@ -29,11 +40,11 @@
 <h3> Daru Vector: </h3>
 <p>
   <b>Data : </b>
-  <%=raw @dt_dv.data.to_html %>
+  <%=raw @dt_dv.data %>
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_dv_html %></div>
+  <div style="width: 500px;"><%=raw @dt_dv.div %></div>
 </p>
 <br>
 
@@ -47,7 +58,7 @@
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_df2_arr_html %></div>
+  <div style="width: 500px;"><%=raw @dt_df2_arr.div %></div>
 </p>
 
 
@@ -61,7 +72,7 @@
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_df1_arr_html %></div>
+  <div style="width: 500px;"><%=raw @dt_df1_arr.div %></div>
 </p>
 
 <br>
@@ -73,8 +84,7 @@
   <br>
   <b>Table : </b>
   <br>
-  <div style="width: 500px;"><%=raw @dt_dv_arr_html %></div>
+  <div style="width: 500px;"><%=raw @dt_dv_arr.div %></div>
 </p>
+
 <br>
-
-
