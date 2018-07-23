@@ -1,0 +1,96 @@
+<h3> Google Charts - Comparision</h3>
+<table>
+  <tr>
+    <th></th>
+    <th>&emsp;&ensp;Data</th> 
+    <th>Options</th>
+  </tr>
+  <tr>
+    <td>Sarah</td>
+    <td>&emsp;&emsp;<%=raw @pizza_sarah.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pizza_sarah.options %></td>
+  </tr>
+  <tr>
+    <td>Anthony</td>
+    <td>&emsp;&emsp;<%=raw @pizza_anthony.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pizza_anthony.options %></td>
+  </tr>
+</table>
+<br>
+<b>Combined Chart : </b>
+<br>
+<%=raw @combined_pizza.div %>
+
+<h3> HighCharts - Comparision</h3>
+<table style="width:100%">
+  <tr>
+    <th></th>
+    <th>&emsp;&ensp;Data</th> 
+    <th>Options</th>
+  </tr>
+  <tr>
+    <td>Funnel Chart</td>
+    <td>&emsp;&emsp;<%=raw @funnel_hc.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @funnel_hc.options %></td>
+  </tr>
+  <tr>
+    <td>Pyramid Chart</td>
+    <td>&emsp;&emsp;<%=raw @pyramid_hc.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pyramid_hc.options %></td>
+  </tr>
+</table>
+<br>
+<b>Combined Chart : </b>
+<br>
+<%=raw @combined_sales.div %>
+
+<h3> Nyaplot - Comparision</h3>
+<table>
+  <tr>
+    <th></th>
+    <th>&emsp;&ensp;Data</th> 
+    <th>Options</th>
+  </tr>
+  <tr>
+    <td>Bar Graph 1</td>
+    <td>&emsp;&emsp;<%=raw @bar_graph1.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @bar_graph1.options %></td>
+  </tr>
+  <tr>
+    <td>Bar Graph 2</td>
+    <td>&emsp;&emsp;<%=raw @bar_graph2.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @bar_graph2.options %></td>
+  </tr>
+</table>
+<br>
+<b>Combined Chart : </b>
+<br>
+<%=raw @bar_combined.div %>
+
+<h3> Multiple Adapters - Comparision</h3>
+<table>
+  <tr>
+    <th></th>
+    <th>&emsp;&ensp;Data</th> 
+    <th>Options</th>
+  </tr>
+  <tr>
+    <td>Google DataTable</td>
+    <td>&emsp;&emsp;<%=raw @pizza_sarah_table.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pizza_sarah_table.options %></td>
+  </tr>
+  <tr>
+    <td>GoogleChart</td>
+    <td>&emsp;&emsp;<%=raw @pizza_sarah.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pizza_sarah.options %></td>
+  </tr>
+  <tr>
+    <td>HighChart</td>
+    <td>&emsp;&emsp;<%=raw @pizza_sarah_hc.data %></td>
+    <td>&emsp;&emsp;&emsp;&emsp;<%=raw @pizza_sarah_hc.options %></td>
+  </tr>
+</table>
+<br>
+<b>Combined Chart : </b>
+<br>
+<%=raw @combined_adapters.div %>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multiple Charts</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- dependent script -->
+    <%=raw Daru::View.dependent_script(:googlecharts) %>
+    <%=raw Daru::View.dependent_script(:highcharts) %>
+    <%=raw Daru::View.dependent_script(:nyaplot) %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
