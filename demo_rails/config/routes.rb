@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get '/highchartscss', to: 'highcharts_css#highcharts_css'
   get '/highchartstockmap', to: 'highchart_stock_map#highchart_stock_map'
   get '/multiplecharts', to: 'multiple_charts#multiple_charts'
+  get '/handlingevents', to: 'handling_events#handling_events'
 end
