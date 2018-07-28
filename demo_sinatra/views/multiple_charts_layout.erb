@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multiple Charts</title>
+
+    <!-- dependent script -->
+    <%= Daru::View.dependent_script(:googlecharts) %>
+    <%= Daru::View.dependent_script(:highcharts) %>
+    <%= Daru::View.dependent_script(:nyaplot) %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

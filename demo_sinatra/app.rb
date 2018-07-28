@@ -21,6 +21,16 @@ get '/googlecharts' do
   erb :googlecharts, :layout => :googlecharts_layout
 end
 
+get '/datatables' do
+  datatables_examples
+  erb :datatables, :layout => :datatables_layout
+end
+
+get '/multiplecharts' do
+  multiple_charts
+  erb :multiple_charts, :layout => :multiple_charts_layout
+end
+
 get '/highchartstockmap' do
   highchart_stock_map
   erb :highchart_stock_map, :layout => :highcharts_layout
@@ -29,6 +39,16 @@ end
 get '/highchartscss' do
   highcharts_css
   erb :highcharts_css, :layout => :highcharts_layout
+end
+
+get '/handlingevents' do
+  handling_events_googlecharts
+  erb :handling_events, :layout => :googlecharts_layout
+end
+
+get '/chartwrapper' do
+  chart_wrapper
+  erb :chart_wrapper, :layout => :googlecharts_layout
 end
 
 def highchart_example
@@ -142,6 +162,100 @@ def googlecharts_example
     @table.table, type: :pie, is3D: true, adapter: :googlecharts, height: 500, width: 800)
   @geochart = Daru::View::Plot.new(
     @table.table, type: :geo, adapter: :googlecharts, height: 500, width: 800)
+
+  data_customers = 'https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq='
+  query_customers = 'SELECT * WHERE A > 1'
+  data_customers << query_customers
+  @customers_table = Daru::View::Table.new(data_customers, adapter: :googlecharts)
+  @customers_chart = Daru::View::Plot.new(data_customers, {type: :line, adapter: :googlecharts})
+
+  query_products = 'SELECT A, H, O, Q, R, U LIMIT 5 OFFSET 8'
+  products = 'https://docs.google.com/spreadsheets/d/1XWJLkAwch5GXAt_7zOFDcg8Wm8' \
+          'Xv29_8PWuuW15qmAE/gviz/tq?gid=0&headers=1&tq='
+  products << query_products
+  column_chart_options = {
+    width: 600,
+    type: :column,
+    adapter: :googlecharts
+  }
+  table_options = {
+    adapter: :googlecharts,
+    showRowNumber: true
+  }
+  @products_table = Daru::View::Table.new(products, table_options)
+  @column_chart = Daru::View::Plot.new(products, column_chart_options)
+end
+
+def datatables_examples
+  # need to give name, otherwise generated thead html code will not work.
+  # Because no name means no thead  in vector.
+  dv = Daru::Vector.new [1, 2, 3, 4, 5, 6], name: 'series1'
+  options = {
+    adapter: :datatables,
+    html_options: {
+      table_options: {
+        table_thead: "<thead>
+                    <tr>
+                      <th></th>
+                      <th>Demo Column Name</th>
+                    </tr>
+                  </thead>",
+        width: '90%'
+      }
+    }
+  }
+  # default adapter is nyaplot only
+  @dt_dv = Daru::View::Table.new(dv, options)
+
+  df1 = Daru::DataFrame.new({b: [11,12,13,14,15], a: [1,2,3,4,5],
+    c: [11,22,33,44,55]},
+    order: [:a, :b, :c],
+    index: [:one, :two, :three, :four, :five])
+  options2 = {
+    adapter: :datatables,
+    html_options: {
+      table_options: {
+        cellspacing: '0',
+        width: "100%"
+      }
+    }
+  }
+  @dt_df1 = Daru::View::Table.new(df1, options2)
+
+  df2 = Daru::DataFrame.new({
+    a: [1, 3, 5, 7, 5, 0],
+    b: [1, 5, 2, 5, 1, 0],
+    c: [1, 6, 7, 2, 6, 0]
+    }, index: 'a'..'f')
+  @dt_df2 = Daru::View::Table.new(df2, pageLength: 3, adapter: :datatables)
+
+  dv_arr = [1, 2, 3, 4, 5, 6]
+  @dt_dv_arr = Daru::View::Table.new(dv_arr, pageLength: 3, adapter: :datatables)
+
+  df1_arr = [
+    [11,12,13,14,15],
+    [1,2,3,4,5],
+    [11,22,33,44,55]
+  ]
+  @dt_df1_arr = Daru::View::Table.new(df1_arr, pageLength: 3, adapter: :datatables)
+
+  df2_arr = [
+    [1, 3, 5, 7, 5, 0],
+    [1, 5, 2, 5, 1, 0],
+    [1, 6, 7, 2, 6, 0]
+  ]
+  @dt_df2_arr = Daru::View::Table.new(df2_arr, pageLength: 3, adapter: :datatables)
+
+  data = []
+  for i in 0..100000
+    data << i
+  end
+  options = {
+    searching: false,
+    pageLength: 7,
+    adapter: :datatables
+  }
+  @table_array_large = Daru::View::Table.new(data, options)
 end
 
 def make_random_series(step)
@@ -616,4 +730,205 @@ def highcharts_css
 
   # initialize
   @column_graph = Daru::View::Plot.new(series_dt2, opts2)
+end
+
+def handling_events_googlecharts
+  Daru::View.plotting_library = :googlecharts
+
+  data = [
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+  ]
+  user_options = {
+      listeners: {
+          page: "alert('The user is navigating to page ' + (e['page'] + 1));",
+          select: "alert('A table row was selected');"
+      }
+  }
+  @table = Daru::View::Table.new(data, {page: 'enable', pageSize: 2}, user_options)
+
+  user_options_chart = {
+      listeners: {
+          select: " var selection = chart.getSelection();
+                    var selectedValue = data_table.getFormattedValue(selection[0].row, 0);
+                    alert('You selected ' + selectedValue + ' year');",
+          # exports the chart to PDF format
+          ready: "var doc = new jsPDF();
+                  doc.addImage(chart.getImageURI(), 0, 0);
+                  doc.save('chart.pdf');"
+      }
+  }
+  @column_chart = Daru::View::Plot.new(@table.table, { type: :column, width: 800 }, user_options_chart)
+end
+
+def multiple_charts
+  idx_sarah = Daru::Index.new ['Topping', 'Slices']
+  data_rows_sarah = [
+            ['Mushrooms', 1],
+            ['Onions', 1],
+            ['Olives', 2],
+            ['Zucchini', 2],
+            ['Pepperoni', 1]
+  ]
+  df_sarah = Daru::DataFrame.rows(data_rows_sarah)
+  df_sarah.vectors = idx_sarah
+  
+  idx_anthony = Daru::Index.new ['Topping', 'Slices']
+  data_rows_anthony = [
+            ['Mushrooms', 2],
+            ['Onions', 2],
+            ['Olives', 2],
+            ['Zucchini', 0],
+            ['Pepperoni', 3]
+  ]
+  df_anthony = Daru::DataFrame.rows(data_rows_anthony)
+  df_anthony.vectors = idx_anthony
+
+  options_sarah = {
+    type: :pie,
+    title:'How Much Pizza Sarah Ate Last Night',
+    width:400,
+    height:300,
+    adapter: :googlecharts
+  }
+  options_anthony = {
+    type: :pie,
+    title:'How Much Pizza Anthony Ate Last Night',
+    width:400,
+    height:300,
+    adapter: :googlecharts
+  }
+
+  @pizza_sarah = Daru::View::Plot.new(df_sarah, options_sarah)
+  @pizza_anthony = Daru::View::Plot.new(df_anthony, options_anthony)
+  @combined_pizza = Daru::View::PlotList.new([@pizza_sarah, @pizza_anthony])
+
+
+  df = Daru::DataFrame.new(
+    {
+      data1: ['Website visits', 'Downloads', 'Requested price list', 'Invoice sent', 'Finalized'],
+      data2: [15654, 4064, 1987, 976, 846]
+    }
+  )
+  opts_funnel = {
+    chart: {
+        type: 'funnel'
+    },
+    modules: ['modules/funnel'],
+    title: {
+        text: 'Sales funnel'
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                softConnector: true
+            },
+            center: ['40%', '50%'],
+            neckWidth: '30%',
+            neckHeight: '25%',
+            width: '80%'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    adapter: 'highcharts'
+  }
+  opts_pyramid = {
+    chart: {
+        type: 'pyramid'
+    },
+    title: {
+        text: 'Sales pyramid',
+        x: -50
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                softConnector: true
+            },
+            center: ['40%', '50%'],
+            width: '80%'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    adapter: 'highcharts'
+  }
+  @funnel_hc = Daru::View::Plot.new(df, opts_funnel)
+  @pyramid_hc = Daru::View::Plot.new(df, opts_pyramid)
+  @combined_sales = Daru::View::PlotList.new([@funnel_hc, @pyramid_hc])
+
+
+  dv = Daru::Vector.new [:a, :a, :a, :b, :b, :c], type: :category
+  dv = Daru::Vector.new ['III']*10 + ['II']*5 + ['I']*5, type: :category, categories: ['I', 'II', 'III']
+  @bar_graph1 = Daru::View::Plot.new(dv, type: :bar, adapter: :nyaplot)
+  @bar_graph2 = Daru::View::Plot.new(dv, type: :bar, adapter: :nyaplot)
+  @bar_combined = Daru::View::PlotList.new([@bar_graph1, @bar_graph2])
+
+
+  options_hc = {
+    chart: {
+      type: 'pie'
+    },
+    title: {
+      text: 'How Much Pizza Sarah Ate Last Night'
+    },
+    adapter: 'highcharts'
+  }
+  @pizza_sarah_hc = Daru::View::Plot.new(df_sarah, options_hc)
+  @pizza_sarah_table = Daru::View::Table.new(df_sarah, adapter: :googlecharts)
+  @combined_adapters = Daru::View::PlotList.new([@pizza_sarah_table, @pizza_sarah, @pizza_sarah_hc])
+end
+
+def chart_wrapper
+  # set the library, to plot charts
+  Daru::View.plotting_library = :googlecharts
+
+  data = [
+        ['Year', 'Sales', 'Expenses'],
+        ['2013',  1000,      400],
+        ['2014',  1170,      460],
+        ['2015',  660,       1120],
+        ['2016',  1030,      540]
+  ]
+  @area_chart_table = Daru::View::Table.new(data, {}, chart_class: 'Chartwrapper')
+  
+  area_chart_options = {
+    type: :area,
+    view: {columns: [0, 1]}
+  }
+  @area_chart_chart = Daru::View::Plot.new(@area_chart_table.table, area_chart_options, chart_class: 'Chartwrapper')
+
+  data_str = 'https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq='
+  @table = Daru::View::Table.new(data_str, {width: 500}, chart_class: 'Chartwrapper')
+  @plot = Daru::View::Plot.new(data, {width: 500, view: {columns: [0, 1]}}, chart_class: 'Chartwrapper')
+
+  idx = Daru::Index.new ['City', '2010 Population',]
+  data_rows = [
+                ['New York City, NY', 8175000],
+                ['Los Angeles, CA', 3792000],
+                ['Chicago, IL', 2695000],
+                ['Houston, TX', 2099000],
+                ['Philadelphia, PA', 1526000]
+              ]
+  df_city_pop = Daru::DataFrame.rows(data_rows)
+  df_city_pop.vectors = idx
+  @bar_basic_table = Daru::View::Table.new(df_city_pop, {}, chart_class: 'Chartwrapper')
+
+  @bar_custom_table = Daru::View::Table.new(df_city_pop, {view: {columns: [0]}}, chart_class: 'Chartwrapper')
+
+  bar_basic_options = {
+    title: 'Population of Largest U.S. Cities',
+    type: :bar
+  }
+  @bar_basic_chart = Daru::View::Plot.new(@bar_basic_table.table, bar_basic_options, chart_class: 'Chartwrapper')
 end
