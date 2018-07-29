@@ -29,3 +29,81 @@
 <br>
 
 <br>
+
+<h3> Importing Data from Google spreadsheet - 1 </h3>
+<p>
+  <b>Data: </b>
+  <%= @customers_table.data %>
+  <br>
+  <b>Options</b>
+  <%= @customers_table.options %>
+  <br>
+  <b>JavaScript Generated: </b>
+  <br> &ensp;function d() {
+  <br> &emsp;var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq=SELECT * WHERE A > 1');
+  <br> &emsp;query.send(handleQueryResponse);
+  <br> &ensp;}
+  <br> &ensp;function handleQueryResponse(response) {
+  <br> &emsp;var data_table = response.getDataTable();
+  <br> &emsp;var table = new google.visualization.Table(document.getElementById('id'));
+  <br> &emsp;table.d(data_table, {});
+  <br> &ensp;};
+  <br>
+  <b>Table : </b>
+  <br>
+  <%= @customers_table.div %>
+</p>
+<br>
+
+<h3> Importing Data from Google spreadsheet - 1 </h3>
+<p>
+  <b>Data: </b>
+  <%= @customers_chart.data %>
+  <br>
+  <b>Options</b>
+  <%= @customers_chart.options %>
+  <br>
+  <b>JavaScript Generated: </b>
+  <br> &ensp;function d() {
+  <br> &emsp;var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1aXns2ch8y_rl9ZLxSYZIU5ewUB1ZNAg5O6iPLZLApZI/gviz/tq?header=1&tq=SELECT * WHERE A > 1');
+  <br> &emsp;query.send(handleQueryResponse);
+  <br> &ensp;}
+  <br> &ensp;function handleQueryResponse(response) {
+  <br> &emsp;var data_table = response.getDataTable();
+  <br> &emsp;var table = new google.visualization.LineChart(document.getElementById('id'));
+  <br> &emsp;table.d(data_table, {});
+  <br> &ensp;};
+  <br>
+  <b>Chart : </b>
+  <br>
+  <%= @customers_chart.div %>
+</p>
+<br>
+
+<h3> Importing Data from Google spreadsheet - 2 </h3>
+<p>
+  <b>Data: </b>
+  <%= @products_table.data %>
+  <br>
+  <b>Options</b>
+  <%= @products_table.options %>
+  <br>
+  <b>Table : </b>
+  <br>
+  <%= @products_table.div %>
+</p>
+<br>
+
+<h3> Importing Data from Google spreadsheet - 2 </h3>
+<p>
+  <b>Data: </b>
+  <%= @column_chart.data %>
+  <br>
+  <b>Options</b>
+  <%= @column_chart.options %>
+  <br>
+  <b>Chart : </b>
+  <br>
+  <%= @column_chart.div %>
+</p>
+<br>
