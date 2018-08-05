@@ -13,3 +13,11 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+//= require highcharts/highcharts
+
+//= require googlecharts/google_visualr
+//= require googlecharts/loader
+
+//= require jquery-latest.min
+//= require jquery.dataTables

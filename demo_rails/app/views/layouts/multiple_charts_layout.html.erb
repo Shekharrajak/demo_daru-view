@@ -2,11 +2,6 @@
 <html>
   <head>
     <title>Multiple Charts</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <!-- dependent script -->
     <%=raw Daru::View.dependent_script(:googlecharts) %>
     <%=raw Daru::View.dependent_script(:highcharts) %>
