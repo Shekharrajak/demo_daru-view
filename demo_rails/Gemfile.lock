@@ -1,4 +1,17 @@
 GIT
+  remote: https://github.com/SciRuby/daru-view.git
+  revision: 1d178bca7c21b6fa4260ed0d6bc017fb1b83f934
+  specs:
+    daru-view (0.1.0)
+      actionview
+      daru
+      daru-data_tables
+      google_visualr
+      lazy_high_charts
+      nyaplot
+      thor
+
+GIT
   remote: https://github.com/SciRuby/daru.git
   revision: 32dd946556c55ebdd10bf215d618c625edbdd9be
   specs:
@@ -14,21 +27,10 @@ GIT
 
 GIT
   remote: https://github.com/shekharrajak/daru-data_tables.git
-  revision: de79857df9f94c4c9878835250c069c27dbf47d6
+  revision: 660c309fc188d29bb14bb76b90560995d75650e5
   specs:
     daru-data_tables (0.1.0)
-
-GIT
-  remote: https://github.com/shekharrajak/daru-view.git
-  revision: dacdfe5e577f210dbc8f9c9356f522976aac58da
-  specs:
-    daru-view (0.1.0)
-      actionview
       daru
-      data_tables
-      google_visualr
-      lazy_high_charts
-      nyaplot
 
 GIT
   remote: https://github.com/winston/google_visualr.git
@@ -100,7 +102,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    data_tables (0.1.26)
     erubi (1.6.1)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -243,4 +244,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.3
+   1.16.2
