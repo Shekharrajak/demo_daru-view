@@ -4,17 +4,17 @@ class HighchartStockMapController < ApplicationController
     Daru::View.plotting_library = :highcharts
 
     # options for the charts
-    chart = {
-      type: 'line'
-    },
     opts = {
       title: {
         text: 'AAPL Stock Price'
       },
-      chart_class: 'stock',
       rangeSelector: {
         selected: 1
       } 
+    }
+
+    user_opts = {
+      chart_class: 'stock'
     }
 
     opts3 = {
@@ -59,13 +59,12 @@ class HighchartStockMapController < ApplicationController
       }])
 
     # initialize
-    @stock = Daru::View::Plot.new(series_dt, opts)
+    @stock = Daru::View::Plot.new(series_dt, opts, user_opts)
 
     @hchart = Daru::View::Plot.new(series_dt, opts3)
 
 
     opts2 = {
-      chart_class: 'map',
       title: {
         text: 'Habitat of the Rusty Blackbird'
       },
@@ -92,6 +91,10 @@ class HighchartStockMapController < ApplicationController
           verticalAlign: 'bottom',
           reversed: true
       }
+    }
+
+    user_opts2 = {
+      chart_class: 'map'
     }
 
     series_dt2 = [{
@@ -1048,11 +1051,10 @@ class HighchartStockMapController < ApplicationController
       ]
     }]
 
-    @map = Daru::View::Plot.new(series_dt2, opts2)
+    @map = Daru::View::Plot.new(series_dt2, opts2, user_opts2)
 
 
     opts4 = {
-      chart_class: 'map',
       chart: {
         map: 'custom/europe',
         spacingBottom: 20
@@ -1092,6 +1094,9 @@ class HighchartStockMapController < ApplicationController
       }
     }
 
+    user_opts4 = {
+      chart_class: 'map'
+    }
 
     series_dt4 = [
       {
@@ -1118,7 +1123,7 @@ class HighchartStockMapController < ApplicationController
       }
     ]
 
-    @map_europe = Daru::View::Plot.new(series_dt4, opts4)
+    @map_europe = Daru::View::Plot.new(series_dt4, opts4, user_opts4)
 
 
     opts5 = {
@@ -1173,14 +1178,12 @@ class HighchartStockMapController < ApplicationController
 
 
     opts6 = {
-        chart_class: 'stock',
         chart: {
             type: 'arearange'
         },
         rangeSelector: {
             selected: 2
         },
-        modules: ['highcharts-more'],
 
         title: {
             text: 'Temperature variation by day'
@@ -1189,6 +1192,11 @@ class HighchartStockMapController < ApplicationController
         tooltip: {
             valueSuffix: '°C'
         }
+    }
+
+    user_opts6 = {
+      chart_class: 'stock',
+      modules: ['highcharts-more']
     }
 
     series_dt6 = [
@@ -1231,11 +1239,10 @@ class HighchartStockMapController < ApplicationController
       }
     ]
 
-    @area_range = Daru::View::Plot.new(series_dt6, opts6)
+    @area_range = Daru::View::Plot.new(series_dt6, opts6, user_opts6)
 
 
     opts7 = {
-      chart_class: 'map',
       chart: {
           map: 'countries/us/us-all',
           borderWidth: 1
@@ -1274,6 +1281,10 @@ class HighchartStockMapController < ApplicationController
               [1, '#000022']
           ]
       }
+    }
+
+    user_opts7 = {
+      chart_class: 'map'
     }
 
     series_dt7 = [{
@@ -1494,7 +1505,7 @@ class HighchartStockMapController < ApplicationController
         }
     }]
 
-    @map_us_population = Daru::View::Plot.new(series_dt7, opts7)
+    @map_us_population = Daru::View::Plot.new(series_dt7, opts7, user_opts7)
 
     opts8 = {
       chart: {
@@ -1502,8 +1513,6 @@ class HighchartStockMapController < ApplicationController
           marginTop: 15,
           height: '65%'
       },
-
-      modules: ['modules/tilemap'],
 
       title: {
           text: 'Idea map'
@@ -1565,6 +1574,10 @@ class HighchartStockMapController < ApplicationController
       }
     }
 
+    user_opts8 = {
+      modules: ['modules/tilemap']
+    }
+
     series_dt8 = [{
         name: 'Main idea',
         pointPadding: 10,
@@ -1596,10 +1609,9 @@ class HighchartStockMapController < ApplicationController
         ]
     }]
 
-    @map_idea = Daru::View::Plot.new(series_dt8, opts8)
+    @map_idea = Daru::View::Plot.new(series_dt8, opts8, user_opts8)
 
     opts9 = {
-      chart_class: 'map',
       chart: {
           plotBorderWidth: 1,
           plotBackgroundColor: '#f4e2ba',
@@ -1642,6 +1654,10 @@ class HighchartStockMapController < ApplicationController
           x: 50,
           y: -50
       }
+    }
+
+    user_opts9 = {
+      chart_class: 'map'
     }
 
     series_dt9 = [
@@ -1794,10 +1810,9 @@ class HighchartStockMapController < ApplicationController
       }
     ]
 
-    @drainage = Daru::View::Plot.new(series_dt9, opts9)
+    @drainage = Daru::View::Plot.new(series_dt9, opts9, user_opts9)
 
     opts10 = {
-      chart_class: 'map',
       chart: {
             map: 'custom/world'
         },
@@ -1838,6 +1853,10 @@ class HighchartStockMapController < ApplicationController
             max: 1000,
             type: 'logarithmic'
         }
+    }
+
+    user_opts10 = {
+      chart_class: 'map'
     }
 
     series_dt10 = [{
@@ -3158,7 +3177,7 @@ class HighchartStockMapController < ApplicationController
     }]
     
 
-    @map_world_fix_tooltip = Daru::View::Plot.new(series_dt10, opts10)
+    @map_world_fix_tooltip = Daru::View::Plot.new(series_dt10, opts10, user_opts10)
 
     render "highchart_stock_map" , layout: "highcharts_layout"
   end

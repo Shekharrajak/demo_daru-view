@@ -6,7 +6,6 @@ class HighchartsCssController < ApplicationController
     # options for the charts
     opts = {
       chart: {defaultSeriesType: 'line'},
-      css: ['.highcharts-background {fill: #efefef;stroke: #a4edba;stroke-width: 2px;}'],
       title: {
         text: 'Solar Employment Growth by Sector, 2010-2016'
       },
@@ -27,25 +26,20 @@ class HighchartsCssController < ApplicationController
       }
     }
 
+    user_opts = {
+      css: ['.highcharts-background {fill: #efefef;stroke: #a4edba;stroke-width: 2px;}']
+    }
+
     # data for the charts
     data = Daru::Vector.new([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
 
     # initialize
-    @line_graph = Daru::View::Plot.new(data, opts)
+    @line_graph = Daru::View::Plot.new(data, opts, user_opts)
 
     opts2 = {
       chart: {
         type: 'column'
       },
-
-      css: ['.highcharts-color-0 {fill: #7cb5ec;stroke: #7cb5ec;}', 
-            '.highcharts-axis.highcharts-color-0 .highcharts-axis-line {stroke: #7cb5ec;}',
-            '.highcharts-axis.highcharts-color-0 text {fill: #7cb5ec;}',
-            '.highcharts-color-1 {fill: #90ed7d;stroke: #90ed7d;}',
-            '.highcharts-axis.highcharts-color-1 .highcharts-axis-line {stroke: #90ed7d;}',
-            '.highcharts-axis.highcharts-color-1 text {fill: #90ed7d;}',
-            '.highcharts-yaxis .highcharts-axis-line {stroke-width: 2px;}'
-            ],
 
       title: {
           text: 'Styling axes'
@@ -71,6 +65,17 @@ class HighchartsCssController < ApplicationController
       }
     }
 
+    user_opts2 = {
+      css: ['.highcharts-color-0 {fill: #7cb5ec;stroke: #7cb5ec;}', 
+            '.highcharts-axis.highcharts-color-0 .highcharts-axis-line {stroke: #7cb5ec;}',
+            '.highcharts-axis.highcharts-color-0 text {fill: #7cb5ec;}',
+            '.highcharts-color-1 {fill: #90ed7d;stroke: #90ed7d;}',
+            '.highcharts-axis.highcharts-color-1 .highcharts-axis-line {stroke: #90ed7d;}',
+            '.highcharts-axis.highcharts-color-1 text {fill: #90ed7d;}',
+            '.highcharts-yaxis .highcharts-axis-line {stroke-width: 2px;}'
+            ]
+    }
+
     series_dt2 = [{
       data: [1, 3, 2, 4]
     }, {
@@ -79,7 +84,7 @@ class HighchartsCssController < ApplicationController
     }]
 
     # initialize
-    @column_graph = Daru::View::Plot.new(series_dt2, opts2)
+    @column_graph = Daru::View::Plot.new(series_dt2, opts2, user_opts2)
 
     render "highcharts_css" , layout: "highcharts_layout"
   end
