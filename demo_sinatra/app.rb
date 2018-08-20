@@ -293,7 +293,7 @@ def highchart_stock_map
     } 
   }
 
-  opts2 = {
+  opts_hc = {
     title: {
       text: 'AAPL Stock Price'
     }
@@ -336,9 +336,9 @@ def highchart_stock_map
 
   # initialize
   @stock = Daru::View::Plot.new(series_dt, opts, chart_class: 'stock')
-  @hchart = Daru::View::Plot.new(series_dt, opts2)
+  @hchart = Daru::View::Plot.new(series_dt, opts_hc)
 
-  opts3 = {
+  opts_india = {
     chart: {
       map: 'countries/in/in-all'
     },
@@ -363,16 +363,16 @@ def highchart_stock_map
     }
   }
 
-  df = Daru::DataFrame.new(
+  df_india = Daru::DataFrame.new(
     {
       countries: ['in-py', 'in-ld', 'in-wb', 'in-or', 'in-br', 'in-sk', 'in-ct', 'in-tn', 'in-mp', 'in-2984', 'in-ga', 'in-nl', 'in-mn', 'in-ar', 'in-mz', 'in-tr', 'in-3464', 'in-dl', 'in-hr', 'in-ch', 'in-hp', 'in-jk', 'in-kl', 'in-ka', 'in-dn', 'in-mh', 'in-as', 'in-ap', 'in-ml', 'in-pb', 'in-rj', 'in-up', 'in-ut', 'in-jh'],
       data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]
     }
   )
-  @map = Daru::View::Plot.new(df, opts3, chart_class: 'map')
+  @map = Daru::View::Plot.new(df_india, opts_india, chart_class: 'map')
 
 
-  opts4 = {
+  opts_europe = {
     chart: {
       map: 'custom/europe',
       spacingBottom: 20
@@ -413,7 +413,7 @@ def highchart_stock_map
   }
 
 
-  series_dt4 = [
+  series_dt_europe = [
     {
       name: 'UTC',
       data: "['IE', 'IS', 'GB', 'PT'].map(function (code) {
@@ -438,10 +438,10 @@ def highchart_stock_map
     }
   ]
 
-  @map_europe = Daru::View::Plot.new(series_dt4, opts4, chart_class: 'map')
+  @map_europe = Daru::View::Plot.new(series_dt_europe, opts_europe, chart_class: 'map')
 
 
-  opts5 = {
+  opts_3d = {
       chart: {
         type: 'pie',
         options3d: {
@@ -470,7 +470,7 @@ def highchart_stock_map
     }
 
   # data for the charts
-  series_dt5 = ([{
+  series_dt_3d = ([{
     type: 'pie',
     name: 'Browser share',
     data: [
@@ -489,10 +489,10 @@ def highchart_stock_map
   }])
 
   # initialize
-  @chart3d = Daru::View::Plot.new(series_dt5, opts5)
+  @chart3d = Daru::View::Plot.new(series_dt_3d, opts_3d)
 
 
-  opts6 = {
+  opts_arearange = {
       chart: {
           type: 'arearange'
       },
@@ -514,7 +514,7 @@ def highchart_stock_map
     modules: ['highcharts-more']
   }
 
-  series_dt6 = [
+  series_dt_arearange = [
     {
       name: 'Temperatures',
       data: [
@@ -554,9 +554,9 @@ def highchart_stock_map
     }
   ]
 
-  @area_range = Daru::View::Plot.new(series_dt6, opts6, user_options)
+  @area_range = Daru::View::Plot.new(series_dt_arearange, opts_arearange, user_options)
 
-  opts8 = {
+  opts_idea_map = {
     chart: {
         type: 'tilemap',
         marginTop: 15,
@@ -623,7 +623,7 @@ def highchart_stock_map
     }
   }
 
-  series_dt8 = [{
+  series_dt_idea_map = [{
       name: 'Main idea',
       pointPadding: 10,
       data: [
@@ -654,7 +654,7 @@ def highchart_stock_map
       ]
   }]
 
-  @map_idea = Daru::View::Plot.new(series_dt8, opts8, modules: ['modules/tilemap'])
+  @map_idea = Daru::View::Plot.new(series_dt_idea_map, opts_idea_map, modules: ['modules/tilemap'])
 end
 
 def highcharts_css
@@ -684,17 +684,17 @@ def highcharts_css
     }
   }
 
-  usr_opts1 = {
+  usr_opts_css = {
     css: ['.highcharts-background {fill: #efefef;stroke: #a4edba;stroke-width: 2px;}']
   }
 
   # data for the charts
-  data = Daru::Vector.new([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
+  data_css = Daru::Vector.new([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
 
   # initialize
-  @line_graph = Daru::View::Plot.new(data, opts, usr_opts1)
+  @line_graph = Daru::View::Plot.new(data_css, opts, usr_opts_css)
 
-  opts2 = {
+  opts_styling_axis = {
     chart: {
       type: 'column'
     },
@@ -723,7 +723,7 @@ def highcharts_css
     }
   }
 
-  usr_opts2 = {
+  usr_opts_styling_axis = {
     css: ['.highcharts-color-0 {fill: #7cb5ec;stroke: #7cb5ec;}',
           '.highcharts-axis.highcharts-color-0 .highcharts-axis-line {stroke: #7cb5ec;}',
           '.highcharts-axis.highcharts-color-0 text {fill: #7cb5ec;}',
@@ -734,7 +734,7 @@ def highcharts_css
           ]
   }
 
-  series_dt2 = [{
+  series_dt_styling_axis = [{
     data: [1, 3, 2, 4]
   }, {
       data: [324, 124, 547, 221],
@@ -742,7 +742,7 @@ def highcharts_css
   }]
 
   # initialize
-  @column_graph = Daru::View::Plot.new(series_dt2, opts2, usr_opts2)
+  @column_graph = Daru::View::Plot.new(series_dt_styling_axis, opts_styling_axis, usr_opts_styling_axis)
 end
 
 def handling_events_googlecharts

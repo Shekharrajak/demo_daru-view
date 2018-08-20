@@ -36,7 +36,7 @@ class HighchartsCssController < ApplicationController
     # initialize
     @line_graph = Daru::View::Plot.new(data, opts, user_opts)
 
-    opts2 = {
+    opts_styling_axes = {
       chart: {
         type: 'column'
       },
@@ -65,7 +65,7 @@ class HighchartsCssController < ApplicationController
       }
     }
 
-    user_opts2 = {
+    user_opts_styling_axes = {
       css: ['.highcharts-color-0 {fill: #7cb5ec;stroke: #7cb5ec;}', 
             '.highcharts-axis.highcharts-color-0 .highcharts-axis-line {stroke: #7cb5ec;}',
             '.highcharts-axis.highcharts-color-0 text {fill: #7cb5ec;}',
@@ -76,7 +76,7 @@ class HighchartsCssController < ApplicationController
             ]
     }
 
-    series_dt2 = [{
+    series_dt_styling_axes = [{
       data: [1, 3, 2, 4]
     }, {
         data: [324, 124, 547, 221],
@@ -84,7 +84,7 @@ class HighchartsCssController < ApplicationController
     }]
 
     # initialize
-    @column_graph = Daru::View::Plot.new(series_dt2, opts2, user_opts2)
+    @column_graph = Daru::View::Plot.new(series_dt_styling_axes, opts_styling_axes, user_opts_styling_axes)
 
     render "highcharts_css" , layout: "highcharts_layout"
   end
