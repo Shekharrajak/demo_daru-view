@@ -352,22 +352,25 @@ class ApplicationController < ActionController::Base
   end
 
 
-   private
-    def resolve_layout
-     case action_name
-       when "highcharts"
-        # setting the library is not needed, if you are parsing the
-        # `adapter` option in plot or table.
-        Daru::View.plotting_library = :highcharts
-        "highcharts_layout"
-       when "googlecharts"
-        Daru::View.plotting_library = :googlecharts
-        "googlecharts_layout"
-       when "datatables"
-        "datatables_layout"
-       else
-        Daru::View.plotting_library = :nyaplot
-        "application"
-       end
+  private
+
+  def resolve_layout
+    case action_name
+    when "main"
+      "layout"
+    when "highcharts"
+      # setting the library is not needed, if you are parsing the
+      # `adapter` option in plot or table.
+      Daru::View.plotting_library = :highcharts
+      "highcharts_layout"
+    when "googlecharts"
+      Daru::View.plotting_library = :googlecharts
+      "googlecharts_layout"
+    when "datatables"
+      "datatables_layout"
+    else
+      Daru::View.plotting_library = :nyaplot
+      "application"
     end
+  end
 end

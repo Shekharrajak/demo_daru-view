@@ -3,7 +3,8 @@ require 'daru/view'
 
 
 get '/' do
-  erb :index , :layout => :layout
+  front_page
+  erb :index , :layout => :googlecharts_layout
 end
 
 get '/nyaplot' do
@@ -59,6 +60,38 @@ end
 get '/formatters' do
   formatters
   erb :formatters, :layout => :googlecharts_layout
+end
+
+def front_page
+  @links = Daru::DataFrame.new({
+    Examples:  [
+      'Nyaplot',
+      'Highcharts',
+      'Googlcharts',
+      'Datatables',
+      'Multiple Charts using PlotList',
+      'Highcharts, Highstock and Highmap',
+      'Highcharts with CSS styling',
+      'Event handling in googlecharts',
+      'Chartwrapper',
+      'Charteditor',
+      'Formatters in google datatables'
+    ],
+    Links: [
+      '<a target="_blank" href="/nyaplot">http://localhost:3000/nyaplot</a>',
+      '<a target="_blank" href="/highcharts">http://localhost:3000/highcharts</a>',
+      '<a target="_blank" href="/googlecharts">http://localhost:3000/googlecharts</a>',
+      '<a target="_blank" href="/datatables">http://localhost:3000/datatables</a>',
+      '<a target="_blank" href="/multiplecharts">http://localhost:3000/multiplecharts</a>',
+      '<a target="_blank" href="/highchartstockmap">http://localhost:3000/highchartstockmap</a>',
+      '<a target="_blank" href="/highchartscss">http://localhost:3000/highchartscss</a>',
+      '<a target="_blank" href="/handlingevents">http://localhost:3000/handlingevents</a>',
+      '<a target="_blank" href="/chartwrapper">http://localhost:3000/chartwrapper</a>',
+      '<a target="_blank" href="/charteditor">http://localhost:3000/charteditor</a>',
+      '<a target="_blank" href="/formatters">http://localhost:3000/formatters</a>'
+    ]
+  })
+  @table_links = Daru::View::Table.new(@links, {allowHtml: true, adapter: :googlecharts})
 end
 
 def highchart_example
