@@ -52,7 +52,6 @@ class MultipleChartsController < ApplicationController
       chart: {
           type: 'funnel'
       },
-      modules: ['modules/funnel'],
       title: {
           text: 'Sales funnel'
       },
@@ -73,6 +72,9 @@ class MultipleChartsController < ApplicationController
           enabled: false
       },
       adapter: 'highcharts'
+    }
+    user_options = {
+      modules: ['modules/funnel']
     }
     opts_pyramid = {
       chart: {
@@ -98,7 +100,7 @@ class MultipleChartsController < ApplicationController
       },
       adapter: 'highcharts'
     }
-    @funnel_hc = Daru::View::Plot.new(df, opts_funnel)
+    @funnel_hc = Daru::View::Plot.new(df, opts_funnel, user_options)
     @pyramid_hc = Daru::View::Plot.new(df, opts_pyramid)
     @combined_sales = Daru::View::PlotList.new([@funnel_hc, @pyramid_hc])
 
