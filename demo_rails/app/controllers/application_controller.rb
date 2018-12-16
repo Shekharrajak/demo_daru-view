@@ -351,6 +351,46 @@ class ApplicationController < ActionController::Base
     @table_array_large = Daru::View::Table.new(data, options)
   end
 
+  def miscellaneous
+    # 3d column chart
+    opts = {
+      type: :column,
+      title: 'Column demo',
+      adapter: :googlecharts,
+      height: 700,
+      width: 800
+    }
+    year = Daru::Vector.new([2005, 2006, 2007, 2008, 2009], name: 'Year')
+    score = Daru::Vector.new([3.6, 4.1, 3.8, 3.9, 4.6], name: 'Score')
+    data = Daru::DataFrame.new(year: year, score: score)
+    @col = Daru::View::Plot.new(data, opts)
+
+    opts_hc = {
+      chart:  {
+              type: 'spline',
+              inverted: true
+          },
+      title: {
+          text: 'Atmosphere Temperature by Altitude'
+      },
+      subtitle: {
+          text: 'According to the Standard Atmosphere Model'
+      },
+      adapter: :highcharts
+    }
+
+    data = [[0, 15], [10, -50], [20, -56.5], [30, -46.5], [40, -22.1],
+                  [50, -2.5], [60, -27.7], [70, -55.7], [80, -76.5]]
+    @line_inv = Daru::View::Plot.new(data, opts_hc)
+
+    df2 = Daru::DataFrame.new({
+      a: [1, 3, 5, 7, 5, 0],
+      b: [1, 5, 2, 5, 1, 0],
+      c: [1, 6, 7, 2, 6, 0]
+      }, index: 'a'..'f')
+    @dt_df2 = Daru::View::Table.new(df2, pageLength: 3, adapter: :datatables)
+  end
+
 
    private
     def resolve_layout
@@ -365,6 +405,8 @@ class ApplicationController < ActionController::Base
         "googlecharts_layout"
        when "datatables"
         "datatables_layout"
+       when "miscellaneous"
+        "miscellaneous_layout"
        else
         Daru::View.plotting_library = :nyaplot
         "application"
